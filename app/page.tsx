@@ -21,12 +21,12 @@ export default function Home() {
           &#128272; Auth
         </h1>
         <p className="text-white text-lg">
-          A simple authentication service
+        Простая служба аутентификации
         </p>
         <div>
           <LoginButton>
             <Button variant="secondary" size="lg">
-              Sign in
+            Войти
             </Button>
           </LoginButton>
         </div>

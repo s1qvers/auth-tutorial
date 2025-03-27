@@ -26,7 +26,7 @@ import Link from "next/link";
 export const LoginForm = () => {
     const searchParams = useSearchParams();
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-        ? "Email already in use with different provider!"
+        ? "Электронная почта уже используется другим провайдером!"
         : "";
 
     const [showTwoFactor, setShowTwoFactor] = useState(false);
@@ -69,8 +69,8 @@ export const LoginForm = () => {
 
     return (
         <CardWrapper
-            headerLabel="Welcome back"
-            backButtonLabel="Don't have an account?"
+            headerLabel="Добро пожаловать"
+            backButtonLabel="У вас нет учетной записи?"
             backButtonHref="/auth/register"
             showSocial
         >
@@ -86,7 +86,7 @@ export const LoginForm = () => {
                                 name="code"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Two Factor Code</FormLabel>
+                                        <FormLabel>Двухфакторный код</FormLabel>
                                         <FormControl>
                                             <Input 
                                                 {...field}
@@ -107,7 +107,7 @@ export const LoginForm = () => {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Email</FormLabel>
+                                            <FormLabel>Электронная почта</FormLabel>
                                             <FormControl>
                                                 <Input 
                                                     {...field}
@@ -125,7 +125,7 @@ export const LoginForm = () => {
                                     name="password"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Password</FormLabel>
+                                            <FormLabel>Пароль</FormLabel>
                                             <FormControl>
                                                 <Input 
                                                     {...field}
@@ -141,7 +141,7 @@ export const LoginForm = () => {
                                                 className="px-0 font-normal"
                                             >
                                                 <Link href="/auth/reset">
-                                                    Forgod password?
+                                                    Забыли пароль?
                                                 </Link>
                                             </Button>
                                             <FormMessage />

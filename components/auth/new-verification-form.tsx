@@ -21,7 +21,7 @@ export const NewVerificationForm = () => {
         if (success || error) return;
 
         if (!token) {
-            setError("Missing token!");
+            setError("Отсутствует токен!");
             return;
         }
 
@@ -31,7 +31,7 @@ export const NewVerificationForm = () => {
                 setError(data.error);
             })
             .catch(() => {
-                setError("Something went wron!");
+                setError("Что-то пошло не так!");
             })
     }, [token, success, error]);
 
@@ -41,8 +41,8 @@ export const NewVerificationForm = () => {
 
     return (
         <CardWrapper
-            headerLabel="Conforming your verification"
-            backButtonLabel="Back to login"
+            headerLabel="Подтверждение вашей проверки"
+            backButtonLabel="Вернуться к входу"
             backButtonHref="/auth/login"
         >
             <div className="flex items-center w-full justify-center">

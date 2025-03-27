@@ -25,7 +25,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     const validatedFields = LoginSchema.safeParse(values);
 
     if (!validatedFields.success) {
-        return { error: "Invalid fields!" };
+        return { error: "Неверные поля!" }
     }
 
     const { email, password, code } = validatedFields.data;
@@ -33,7 +33,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     const existingUser = await getUserByEmail(email);
 
     if (!existingUser || !existingUser.email || !existingUser.password) {
-        return { error: "Email does not exist!" }
+        return { error: "Электронная почта не существует!" }
     }
 
     if (!existingUser.emailVerified) {
@@ -46,7 +46,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
             verificationToken.token,
         );
 
-        return { success: "Confirmation email sent!" };
+        return { success: "Подтверждение отправлено по электронной почте" };
     }
 
     if (existingUser.isTwoFactorEnabled && existingUser.email) {
@@ -56,17 +56,17 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
             );
 
             if (!twoFactorToken) {
-                return { error: "Invalid code!" };
+                return { error: "Неверный код!" };
             }
 
             if (twoFactorToken.token !== code) {
-                return { error: "Invalid code!" };
+                return { error: "Неверный код!" };
             }
 
             const hasExpired = new Date(twoFactorToken.expires) < new Date();
 
             if (hasExpired) {
-                return { error: "Code expired!" };
+                return { error: "Срок действия кода истек!" };
             }
 
             await db.twoFactorToken.delete({
@@ -109,9 +109,9 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         if (error instanceof AuthError) {
             switch (error.type) {
                 case "CredentialsSignin":
-                    return { error: "Invalid credentials!" }
+                    return { error: "Недействительные учетные данные!" }
                 default:
-                    return { error: "Something went wrong!" }
+                    return { error: "Что-то пошло не так!" }
             }
         }
 
