@@ -158,7 +158,7 @@ export const LoginForm = () => {
                         type="submit"
                         className="w-full"
                     >
-                        {showTwoFactor ? "Confirm" : "Login"}
+                        {showTwoFactor ? "Подтверждать" : "Авторизоваться"}
                     </Button>
                 </form>
             </Form>
