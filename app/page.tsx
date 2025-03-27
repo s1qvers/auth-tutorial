@@ -18,7 +18,7 @@ export default function Home() {
           "text-6xl font-semibold text-white drop-shadow-md",
           font.className,
         )}>
-          &#128272; Auth
+          &#128272; Аутентификация
         </h1>
         <p className="text-white text-lg">
         Простая служба аутентификации

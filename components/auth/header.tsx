@@ -20,7 +20,7 @@ export const Header = ({
                 "text-3xl font-semibold",
                 font.className,
             )}>
-                &#128272; Auth
+                &#128272; Аутентификация
             </h1>
             <p className="text-muted-foreground text-sm">
                 {label}
