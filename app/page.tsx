@@ -2,11 +2,29 @@ import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { LoginButton } from "@/components/auth/login-button";
+import { Suspense } from "react";
 
 const font = Poppins({
   subsets: ["latin"],
-  weight: ["600"]
+  weight: ["600"],
+  display: "swap",
+  preload: true,
 })
+
+// Предварительная загрузка страницы логина
+const LoginButtonWithSuspense = () => (
+  <Suspense fallback={<div className="h-10 w-full bg-gray-200 animate-pulse rounded-md" />}>
+    <LoginButton>
+      <Button 
+        variant="secondary" 
+        size="lg"
+        className="w-full"
+      >
+        Войти
+      </Button>
+    </LoginButton>
+  </Suspense>
+);
 
 export default function Home() {
   return (
@@ -21,14 +39,10 @@ export default function Home() {
           &#128272; Аутентификация
         </h1>
         <p className="text-white text-lg">
-        Простая служба аутентификации
+          Простая служба аутентификации
         </p>
-        <div>
-          <LoginButton>
-            <Button variant="secondary" size="lg">
-            Войти
-            </Button>
-          </LoginButton>
+        <div className="w-full max-w-[200px] mx-auto">
+          <LoginButtonWithSuspense />
         </div>
       </div>
     </main>

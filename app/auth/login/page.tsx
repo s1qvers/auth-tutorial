@@ -1,9 +1,10 @@
 import { LoginForm } from "@/components/auth/login-form";
+import { Suspense } from "react";
 
-const LoginPage = () => {
+export default function LoginPage() {
     return (
-        <LoginForm />
+        <Suspense fallback={<div>Loading...</div>}>
+            <LoginForm />
+        </Suspense>
     );
 }
-
-export default LoginPage;
