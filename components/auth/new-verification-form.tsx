@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import { newVerification } from "@/actions/new-verification";
 import { CardWrapper } from "@/components/auth/card-wrapper"; 
@@ -12,28 +12,40 @@ import { FormSuccess } from "@/components/form-success";
 export const NewVerificationForm = () => {
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isVerified, setIsVerified] = useState(false);
 
     const searchParams = useSearchParams();
-
+    const router = useRouter();
     const token = searchParams.get("token");
 
     const onSubmit = useCallback(() => {
-        if (success || error) return;
-
-        if (!token) {
+        if (!token || isVerified) {
             setError("Отсутствует токен!");
+            setIsLoading(false);
             return;
         }
 
         newVerification(token)
             .then((data) => {
-                setSuccess(data.success);
-                setError(data.error);
+                if (data.success) {
+                    setSuccess(data.success);
+                    setIsVerified(true);
+                    setTimeout(() => {
+                        router.push("/auth/login");
+                    }, 2000);
+                }
+                if (data.error) {
+                    setError(data.error);
+                }
             })
             .catch(() => {
                 setError("Что-то пошло не так!");
             })
-    }, [token, success, error]);
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, [token, router, isVerified]);
 
     useEffect(() => {
         onSubmit();
@@ -46,11 +58,13 @@ export const NewVerificationForm = () => {
             backButtonHref="/auth/login"
         >
             <div className="flex items-center w-full justify-center">
-                {!success && !error && (
+                {isLoading && (
                     <BeatLoader />
                 )}
-                <FormSuccess message={success} />
-                {!success && (
+                {!isLoading && success && (
+                    <FormSuccess message={success} />
+                )}
+                {!isLoading && error && !success && (
                     <FormError message={error} />
                 )}
             </div>

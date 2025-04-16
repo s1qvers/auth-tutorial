@@ -31,7 +31,7 @@ export default auth((req) => {
   }
 
 
-  if (!isLoggedIn && !isPublicRoute && nextUrl.pathname !== "/auth/redister"){
+  if (!isLoggedIn && !isPublicRoute && nextUrl.pathname !== "/auth/register"){
     return NextResponse.redirect(new URL('/auth/login', req.url));
   }
   return NextResponse.next();
